@@ -13,7 +13,7 @@ import java.awt.*;
  */
 public class ChatFace extends JFrame{
 
-    JTextArea windowDialog;
+    JTextArea messageBoard;
     JCheckBox checkBox;
     JTextField messageDialog;
     ChatBot chatBot;
@@ -40,38 +40,38 @@ public class ChatFace extends JFrame{
         setResizable(false);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        windowDialog = new JTextArea();
-        windowDialog.setEditable(false);
-        windowDialog.setLineWrap(true);
+        messageBoard = new JTextArea();
+        messageBoard.setEditable(false);
+        messageBoard.setLineWrap(true);
 
-        JScrollPane scrollBar = new JScrollPane(windowDialog);
+        JScrollPane scrollBar = new JScrollPane(messageBoard);
         add(BorderLayout.CENTER, scrollBar);
         botStyle = new SimpleAttributeSet();
         StyleConstants.setItalic(botStyle,true);
         StyleConstants.setForeground(botStyle, Color.DARK_GRAY);
 
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+        JPanel bottomMessageMenu = new JPanel();
+        bottomMessageMenu.setLayout(new BoxLayout(bottomMessageMenu, BoxLayout.X_AXIS));
 
         checkBox = new JCheckBox();
         checkBox.doClick();
-        panel.add(checkBox);
+        bottomMessageMenu.add(checkBox);
 
         messageDialog = new JTextField();
         messageDialog.addActionListener(messagesListener);
-        panel.add(messageDialog);
+        bottomMessageMenu.add(messageDialog);
 
         JButton submitBtn = new JButton();
         submitBtn.setText("submit");
         submitBtn.addActionListener(messagesListener);
-        panel.add(submitBtn);
+        bottomMessageMenu.add(submitBtn);
 
         messagesListener.setBotStyle(botStyle);
         messagesListener.setChatBot(chatBot);
         messagesListener.setCheckBox(checkBox);
         messagesListener.setMessageDialog(messageDialog);
-        messagesListener.setWindowDialog(windowDialog);
-        add(BorderLayout.SOUTH, panel);
+        messagesListener.setMessageBoard(messageBoard);
+        add(BorderLayout.SOUTH, bottomMessageMenu);
         setVisible(true);
     }
 

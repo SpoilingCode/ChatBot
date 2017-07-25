@@ -15,7 +15,7 @@ public class MessagesListener implements ActionListener {
     private JCheckBox checkBox;
     private ChatBot chatBot;
     private SimpleAttributeSet botStyle;
-    private JTextArea windowDialog;
+    private JTextArea messageBoard;
 
     public void setChatBot(ChatBot chatBot) {
         this.chatBot = chatBot;
@@ -33,8 +33,8 @@ public class MessagesListener implements ActionListener {
         this.checkBox = checkBox;
     }
 
-    public void setWindowDialog(JTextArea windowDialog) {
-        this.windowDialog = windowDialog;
+    public void setMessageBoard(JTextArea messageBoard) {
+        this.messageBoard = messageBoard;
     }
 
     @Override
@@ -45,7 +45,7 @@ public class MessagesListener implements ActionListener {
 
         if(messageLength > 0){
             try {
-                windowDialog.append(message + "\n");
+                messageBoard.append(message + "\n");
             }catch(Exception ex){
                 ex.printStackTrace();
             }
