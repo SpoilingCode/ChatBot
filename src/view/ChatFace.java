@@ -1,45 +1,47 @@
 package view;
 
 import bot.ChatBot;
+import listeners.MessagesListener;
 
 import javax.swing.*;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
- * Created by gerit on 24.07.2017.
+ * Class is the face of the chat
  */
-public class BotFace extends JFrame{
+public class ChatFace extends JFrame{
 
     JTextArea windowDialog;
     JCheckBox checkBox;
     JTextField messageDialog;
     ChatBot chatBot;
     SimpleAttributeSet botStyle;
-    final String APPLICATION_NAME = "Chat Bot";
+    public static final String APPLICATION_NAME = "Chat Bot";
     final int START_POSITION = 200;
     final int WINDOW_WIDTH = 360;
     final int WINDOW_HEIGHT = 480;
 
-    public BotFace(){
+    public ChatFace(){
         drawWindowAndElements();
     }
 
     public static void main(String[] args) {
-        new BotFace();
+        new ChatFace();
     }
 
     public void drawWindowAndElements(){
+        MessagesListener messagesListener = new MessagesListener();
         setTitle(APPLICATION_NAME);
         setBounds(START_POSITION, START_POSITION,
                 WINDOW_WIDTH,WINDOW_HEIGHT);
         setBackground(Color.pink);
         setResizable(false);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
         windowDialog = new JTextArea();
+        windowDialog.setEditable(false);
         windowDialog.setLineWrap(true);
 
         JScrollPane scrollBar = new JScrollPane(windowDialog);
@@ -47,6 +49,7 @@ public class BotFace extends JFrame{
         botStyle = new SimpleAttributeSet();
         StyleConstants.setItalic(botStyle,true);
         StyleConstants.setForeground(botStyle, Color.DARK_GRAY);
+
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 
@@ -55,14 +58,19 @@ public class BotFace extends JFrame{
         panel.add(checkBox);
 
         messageDialog = new JTextField();
-        messageDialog.addActionListener(this);
+        messageDialog.addActionListener(messagesListener);
         panel.add(messageDialog);
 
         JButton submitBtn = new JButton();
         submitBtn.setText("submit");
-        submitBtn.addActionListener(this);
+        submitBtn.addActionListener(messagesListener);
         panel.add(submitBtn);
 
+        messagesListener.setBotStyle(botStyle);
+        messagesListener.setChatBot(chatBot);
+        messagesListener.setCheckBox(checkBox);
+        messagesListener.setMessageDialog(messageDialog);
+        messagesListener.setWindowDialog(windowDialog);
         add(BorderLayout.SOUTH, panel);
         setVisible(true);
     }

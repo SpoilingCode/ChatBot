@@ -1,7 +1,6 @@
 package bot;
 
 /**
- * Created by gerit on 24.07.2017.
- */
+ * Class for realize bot responses in chat */
 public class ChatBot {
 }
