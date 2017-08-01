@@ -7,6 +7,7 @@ import javax.swing.*;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import java.awt.*;
+import java.lang.*;
 
 /**
  * Class is the face of the chat

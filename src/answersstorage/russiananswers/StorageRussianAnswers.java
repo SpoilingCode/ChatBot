@@ -25,20 +25,4 @@ public class StorageRussianAnswers {
     public Map<String, String> getAnswersInRussian() {
         return answersInRussian;
     }
-
-    public String getAnswerToAskedQuestion(String message){
-        String key;
-        String answer;
-        String messageWithoutWhiteSpaces = message.trim();
-
-        for (Map.Entry<String, String> entry : answersInRussian.entrySet()) {
-            key = entry.getKey();
-            if(messageWithoutWhiteSpaces.toLowerCase().equals(key)){
-                answer = entry.getValue();
-                return  answer;
-            }
-        }
-        answer = null;
-        return answer;
-    }
 }

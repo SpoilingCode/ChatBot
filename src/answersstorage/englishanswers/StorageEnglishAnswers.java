@@ -14,7 +14,7 @@ public class StorageEnglishAnswers {
             put("who","Try to guess.");
             put("name","My name is droid C-3PO.");
             put("whattime","I don't know.");
-            put("whatdoyoudoing", "With you I communicate.");
+            put("what do you doing", "With you I communicate.");
             put("whatdoyoulike","Like talking.");
             put("yes", "I'm glad that you agree with me.");
             put("bye", "Goodbye, come back rather.");
@@ -24,6 +24,4 @@ public class StorageEnglishAnswers {
     public Map<String, String> getAnswersInEnglish() {
         return answersInEnglish;
     }
-
-
 }

@@ -6,6 +6,7 @@ import javax.swing.text.SimpleAttributeSet;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+
 /**
  * Class for listening to messages from the chat
  */
@@ -38,7 +39,9 @@ public class MessagesListener implements ActionListener {
 
         if( !isEmptyMessage(message) ){
             messageBoard.append(message + "\n");
-            messageBoard.append(chatBot.talk(message));
+            messageBoard.append(chatBot.getBotName()
+                                                  .concat(": ")
+                                                  .concat(chatBot.talk(message)+"\n"));
         }
         messageField.setText("");
         messageField.requestFocusInWindow();
