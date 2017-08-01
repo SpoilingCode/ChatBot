@@ -1,7 +1,7 @@
 package view;
 
 import bot.ChatBot;
-import listeners.MessagesListener;
+import listener.MessagesListener;
 
 import javax.swing.*;
 import javax.swing.text.SimpleAttributeSet;
@@ -13,29 +13,26 @@ import java.awt.*;
  */
 public class ChatFace extends JFrame{
 
-    JTextArea messageBoard;
-    JCheckBox checkBox;
-    JTextField messageDialog;
-    ChatBot chatBot;
-    SimpleAttributeSet botStyle;
-    public static final String APPLICATION_NAME = "Chat Bot";
-    final int START_POSITION = 200;
-    final int WINDOW_WIDTH = 360;
-    final int WINDOW_HEIGHT = 480;
-
-    public ChatFace(){
-        drawWindowAndElements();
-    }
+    private JTextArea messageBoard;
+    private JTextField messageField;
+    private ChatBot chatBot;
+    private SimpleAttributeSet botStyle;
+    private static final String APPLICATION_NAME = "Chat Bot";
+    private final int START_POSITION = 200;
+    private final int WINDOW_WIDTH = 360;
+    private final int WINDOW_HEIGHT = 480;
 
     public static void main(String[] args) {
-        new ChatFace();
+        ChatFace chatFace = new ChatFace();
+        chatFace.drawWindowAndElements();
     }
 
     public void drawWindowAndElements(){
         MessagesListener messagesListener = new MessagesListener();
         setTitle(APPLICATION_NAME);
         setBounds(START_POSITION, START_POSITION,
-                WINDOW_WIDTH,WINDOW_HEIGHT);
+                  WINDOW_WIDTH,WINDOW_HEIGHT);
+        setLocationRelativeTo(null);
         setBackground(Color.pink);
         setResizable(false);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -51,15 +48,12 @@ public class ChatFace extends JFrame{
         StyleConstants.setForeground(botStyle, Color.DARK_GRAY);
 
         JPanel bottomMessageMenu = new JPanel();
-        bottomMessageMenu.setLayout(new BoxLayout(bottomMessageMenu, BoxLayout.X_AXIS));
+        bottomMessageMenu.setLayout(new BoxLayout(bottomMessageMenu,
+                                                  BoxLayout.X_AXIS));
 
-        checkBox = new JCheckBox();
-        checkBox.doClick();
-        bottomMessageMenu.add(checkBox);
-
-        messageDialog = new JTextField();
-        messageDialog.addActionListener(messagesListener);
-        bottomMessageMenu.add(messageDialog);
+        messageField = new JTextField();
+        messageField.addActionListener(messagesListener);
+        bottomMessageMenu.add(messageField);
 
         JButton submitBtn = new JButton();
         submitBtn.setText("submit");
@@ -67,12 +61,13 @@ public class ChatFace extends JFrame{
         bottomMessageMenu.add(submitBtn);
 
         messagesListener.setBotStyle(botStyle);
+        chatBot = new ChatBot();
         messagesListener.setChatBot(chatBot);
-        messagesListener.setCheckBox(checkBox);
-        messagesListener.setMessageDialog(messageDialog);
+        messagesListener.setMessageField(messageField);
         messagesListener.setMessageBoard(messageBoard);
+
         add(BorderLayout.SOUTH, bottomMessageMenu);
+
         setVisible(true);
     }
-
 }

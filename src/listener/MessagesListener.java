@@ -1,4 +1,4 @@
-package listeners;
+package listener;
 
 import bot.ChatBot;
 import javax.swing.*;
@@ -10,9 +10,8 @@ import java.awt.event.ActionListener;
  * Class for listening to messages from the chat
  */
 public class MessagesListener implements ActionListener {
-    private JTextField messageDialog;
+    private JTextField messageField;
     private String message;
-    private JCheckBox checkBox;
     private ChatBot chatBot;
     private SimpleAttributeSet botStyle;
     private JTextArea messageBoard;
@@ -25,12 +24,8 @@ public class MessagesListener implements ActionListener {
         this.botStyle = botStyle;
     }
 
-    public void setMessageDialog(JTextField messageDialog) {
-        this.messageDialog = messageDialog;
-    }
-
-    public void setCheckBox(JCheckBox checkBox) {
-        this.checkBox = checkBox;
+    public void setMessageField(JTextField messageField) {
+        this.messageField = messageField;
     }
 
     public void setMessageBoard(JTextArea messageBoard) {
@@ -39,18 +34,19 @@ public class MessagesListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-       message =  messageDialog.getText();
-       String messageWithoutSpaces = message.trim();
-       int messageLength = messageWithoutSpaces.length();
+       message =  messageField.getText();
 
-        if(messageLength > 0){
-            try {
-                messageBoard.append(message + "\n");
-            }catch(Exception ex){
-                ex.printStackTrace();
-            }
+        if( !isEmptyMessage(message) ){
+            messageBoard.append(message + "\n");
+            messageBoard.append(chatBot.talk(message));
         }
-        messageDialog.setText("");
-        messageDialog.requestFocusInWindow();
+        messageField.setText("");
+        messageField.requestFocusInWindow();
+    }
+
+    public boolean isEmptyMessage(String message){
+        String messageWithoutSpaces = message.trim();
+        int messageLength = messageWithoutSpaces.length();
+        return messageLength == 0;
     }
 }
